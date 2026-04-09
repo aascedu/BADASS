@@ -1,3 +1,18 @@
-FROM alpine:3.23
+FROM debian:bookworm
 
-CMD ["sh"]
+RUN apt update -y && apt upgrade -y
+
+RUN apt install -y curl lsb-release busybox
+
+RUN curl -s https://deb.frrouting.org/frr/keys.gpg | tee /usr/share/keyrings/frrouting.gpg > /dev/null && \
+    FRRVER="frr-stable" && \
+    echo deb '[signed-by=/usr/share/keyrings/frrouting.gpg]' https://deb.frrouting.org/frr \
+        $(lsb_release -s -c) $FRRVER | tee -a /etc/apt/sources.list.d/frr.list && \
+    apt update -y && apt install -y frr frr-pythontools
+
+COPY ./daemons /etc/frr/daemons
+
+RUN mkdir -p /var/run/frr && chown -R frr:frr /var/run/frr && chown -R frr:frr /etc/frr
+
+ENTRYPOINT ["/usr/lib/frr/watchfrr"]
+CMD ["zebra", "bgpd", "ospfd", "isisd", "staticd"]

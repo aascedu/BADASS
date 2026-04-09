@@ -1,3 +1,5 @@
-FROM alpine:3.23
+FROM debian:bookworm
 
-CMD ["sh"]
+RUN apt install -y busybox
+
+CMD ["bash"]
