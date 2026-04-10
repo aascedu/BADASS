@@ -42,10 +42,14 @@ Then boot from hard disk:
 ## Setup the environment
 
 
+#### Shared clipboard
+`sudo apt install -y spice-vdagent`
+
+
 #### Mount shared working directory
 ```
 sudo mkdir -p /mnt/badass
-sudo mount -t 9p -o trans=virtio badass /mnt/badass
+sudo mount -t 9p -o trans=virtio,rw badass /mnt/badass
 ```
 
 
