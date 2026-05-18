@@ -11,8 +11,9 @@ RUN curl -s https://deb.frrouting.org/frr/keys.gpg | tee /usr/share/keyrings/frr
     apt update -y && apt install -y frr frr-pythontools
 
 COPY ./daemons /etc/frr/daemons
-
 RUN mkdir -p /var/run/frr && chown -R frr:frr /var/run/frr && chown -R frr:frr /etc/frr
+COPY ./entrypoint.sh /entrypoint.sh
+COPY ./router-network.sh /network.sh
+RUN chmod a+x /entrypoint.sh /network.sh
 
-ENTRYPOINT ["/usr/lib/frr/watchfrr"]
-CMD ["zebra", "bgpd", "ospfd", "isisd", "staticd"]
+ENTRYPOINT ["/entrypoint.sh"]
