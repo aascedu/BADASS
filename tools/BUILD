@@ -11,13 +11,13 @@ fi
 
 case "$1" in
     p1)
-        echo "Lancement des commandes pour p1..."
+        echo "building p1..."
         cd P1
         docker build -f ./host/host.Dockerfile --build-arg NAME=host -t host:stable ./host
         docker build -f ./router/router.Dockerfile --build-arg NAME=router -t router:stable ./router
         ;;
     p2)
-        echo "Lancement des commandes pour p2..."
+        echo "building p2..."
         cd P2
         docker build -f ./host/host.Dockerfile --build-arg NAME=hostA -t host-a:stable ./host
         docker build -f ./host/host.Dockerfile --build-arg NAME=hostB -t host-b:stable ./host
@@ -25,12 +25,12 @@ case "$1" in
         docker build -f ./router/router.Dockerfile --build-arg NAME=routerB -t router-b:stable ./router
         ;;
     p3)
-        echo "Lancement des commandes pour p3..."
+        echo "building p3..."
         cd P3
         ;;
     *)
-        echo "Erreur : Argument invalide '$1'." >&2
-        echo "Seuls 'p1', 'p2' ou 'p3' sont acceptés." >&2
+        echo "Error : invalid argument '$1'." >&2
+        echo "Only 'p1', 'p2' or 'p3' are accepted." >&2
         exit 1
         ;;
 esac
