@@ -1,0 +1,14 @@
+#! /bin/bash
+# ip addr add 10.0.0.4/24 dev eth1
+# ip link set eth1 up
+
+ip link add br0 type bridge
+# static conf: # ip link add vxlan10 type vxlan id 10 dev eth1 remote 10.0.0.2 dstport 4789
+# ip link add vxlan10 type vxlan id 10 dev eth1 group 239.1.1.10 dstport 4789
+
+ip link set eth0 master br0
+# ip link set vxlan10 master br0
+
+ip link set eth0 up
+# ip link set vxlan10 up
+ip link set br0 up

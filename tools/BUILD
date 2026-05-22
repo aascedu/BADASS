@@ -27,6 +27,13 @@ case "$1" in
     p3)
         echo "building p3..."
         cd P3
+        docker build -f ./host/host.Dockerfile --build-arg NAME=hostA -t host-a:stable ./host
+        docker build -f ./host/host.Dockerfile --build-arg NAME=hostB -t host-b:stable ./host
+        docker build -f ./host/host.Dockerfile --build-arg NAME=hostC -t host-c:stable ./host
+        docker build -f ./router/router.Dockerfile --build-arg NAME=routerA -t router-a:stable ./router
+        docker build -f ./router/router.Dockerfile --build-arg NAME=routerB -t router-b:stable ./router
+        docker build -f ./router/router.Dockerfile --build-arg NAME=routerC -t router-c:stable ./router
+        docker build -f ./router/router.Dockerfile --build-arg NAME=routerRR -t router-rr:stable ./router
         ;;
     *)
         echo "Error : invalid argument '$1'." >&2
