@@ -17,7 +17,7 @@ COPY ./${NAME}-network.sh /network.sh
 COPY ./daemons /etc/frr/daemons
 RUN mkdir -p /var/run/frr && chown -R frr:frr /var/run/frr && chown -R frr:frr /etc/frr
 COPY ./entrypoint.sh /entrypoint.sh
-COPY /${NAME}-frr.conf /etc/frr.conf
+COPY /${NAME}-frr.conf /etc/frr/frr.conf
 RUN chmod a+x /entrypoint.sh /network.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
