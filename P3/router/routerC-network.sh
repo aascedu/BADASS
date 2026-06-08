@@ -1,5 +1,5 @@
 #! /bin/bash
-ip link add vxlan10 type vxlan id 10 dev eth0 dstport 4789
+ip link add vxlan10 type vxlan id 10 dev eth0 dstport 4789 local 10.255.0.13 nolearning
 ip link set vxlan10 up
 
 ip link add br0 type bridge
